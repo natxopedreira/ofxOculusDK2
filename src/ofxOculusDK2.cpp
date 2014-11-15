@@ -162,9 +162,14 @@ ofxOculusDK2::~ofxOculusDK2(){
 
 bool ofxOculusDK2::setup(){
 	ofFbo::Settings settings;
-	settings.numSamples = 4;
+	settings.numSamples = 0;
 	settings.internalformat = GL_RGBA;
     settings.useDepth = true;
+    settings.textureTarget = GL_TEXTURE_2D;
+    settings.minFilter = GL_LINEAR;
+    settings.maxFilter = GL_LINEAR;
+    settings.wrapModeHorizontal = GL_CLAMP_TO_EDGE;
+    settings.wrapModeVertical = GL_CLAMP_TO_EDGE;
 	return setup(settings);
 }
 
@@ -616,6 +621,15 @@ void ofxOculusDK2::draw(){
 	if(!insideFrame) return;
     
 	ovr_WaitTillTime(frameTiming.TimewarpPointSeconds);
+    
+    static int do_debug=0;
+    if (do_debug==0) {
+        ofPixels dp;
+        renderTarget.readToPixels(dp);
+        debugImage.setFromPixels(dp);
+        debugImage.saveImage("debug.png");
+        do_debug = 1;
+    }
     
 	///JG START HERE 
 	// Prepare for distortion rendering. 
