@@ -6,11 +6,12 @@ void testApp::setup()
 {
 	ofBackground(0);
 	ofSetLogLevel( OF_LOG_VERBOSE );
-	ofSetVerticalSync( true );
+	ofSetVerticalSync( false );
     ofEnableDepthTest();
    
-    ofSetWindowPosition(1920, 0);
-    ofToggleFullscreen();
+    //ofToggleFullscreen();
+    //ofSetWindowPosition(1920, 0);
+   // ofToggleFullscreen();
 	showOverlay = false;
 	predictive = true;
 	
